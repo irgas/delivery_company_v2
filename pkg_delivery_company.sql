@@ -1,6 +1,3 @@
---------------------------------------------------------
---  DDL for Package PKG_DELIVERY_COMPANY
---------------------------------------------------------
 
   CREATE OR REPLACE PACKAGE PKG_DELIVERY_COMPANY 
 IS
@@ -28,9 +25,6 @@ IS
 END pkg_delivery_company;
 
 /
---------------------------------------------------------
---  DDL for Package Body PKG_DELIVERY_COMPANY
---------------------------------------------------------
 
   CREATE OR REPLACE PACKAGE BODY PKG_DELIVERY_COMPANY AS
 
