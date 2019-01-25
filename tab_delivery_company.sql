@@ -29,7 +29,11 @@ CREATE TABLE clients (
     apartment_nr      VARCHAR2(5 CHAR),
     phone             VARCHAR2(15 CHAR) NOT NULL,
     email             VARCHAR2(50 CHAR) NOT NULL,
-    bank_account_nr   NUMBER(26)
+    bank_account_nr   NUMBER(26),
+    verified          VARCHAR2(1 CHAR),
+    blocked           VARCHAR2(1 CHAR),
+    PASSWORD          VARCHAR2(40 CHAR),
+    login             VARCHAR2(15 CHAR)
 );
 
 ALTER TABLE clients ADD CONSTRAINT clients_pk PRIMARY KEY ( nr );
@@ -76,6 +80,7 @@ CREATE TABLE delivery_details (
     delivery_nr    VARCHAR2(10 CHAR) NOT NULL,
     parcel_code    VARCHAR2(5 CHAR) NOT NULL,
     parcel_count   NUMBER(8) NOT NULL,
+	parcel_price  NUMBER(8,2) NOT NULL,
     value          NUMBER(8,2) NOT NULL
 );
 
