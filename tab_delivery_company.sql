@@ -39,7 +39,7 @@ CREATE TABLE clients (
 ALTER TABLE clients ADD CONSTRAINT clients_pk PRIMARY KEY ( nr );
 
 CREATE TABLE delivery (
-    nr                            VARCHAR2(10 CHAR) NOT NULL,
+    nr                            VARCHAR2(15 CHAR) NOT NULL,
     cost                          NUMBER(10,2) NOT NULL,
     content                       VARCHAR2(200 CHAR),
     comments                      VARCHAR2(200 CHAR),
@@ -77,7 +77,7 @@ CREATE TABLE delivery (
 ALTER TABLE delivery ADD CONSTRAINT delivery_pk PRIMARY KEY ( nr );
 
 CREATE TABLE delivery_details (
-    delivery_nr    VARCHAR2(10 CHAR) NOT NULL,
+    delivery_nr    VARCHAR2(15 CHAR) NOT NULL,
     parcel_code    VARCHAR2(5 CHAR) NOT NULL,
     parcel_count   NUMBER(8) NOT NULL,
 	parcel_price  NUMBER(8,2) NOT NULL,
@@ -149,7 +149,7 @@ ALTER TABLE stations ADD CONSTRAINT stations_pk PRIMARY KEY ( code );
 
 CREATE TABLE statues (
     date_time      TIMESTAMP NOT NULL,
-    delivery_nr    VARCHAR2(10 CHAR) NOT NULL,
+    delivery_nr    VARCHAR2(15 CHAR) NOT NULL,
     station_code   VARCHAR2(5 CHAR) NOT NULL,
     description    VARCHAR2(80 CHAR) NOT NULL
 );
