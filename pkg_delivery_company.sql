@@ -1,9 +1,8 @@
-
   CREATE OR REPLACE PACKAGE PKG_DELIVERY_COMPANY 
 IS
 --function that encrypts the password    
     FUNCTION f_get_encrypt_password(pv_login IN VARCHAR2, pv_password IN VARCHAR2) RETURN VARCHAR2;
---functions that checks the user's identity    
+--function that checks the user's identity    
     FUNCTION f_authentication(p_username IN VARCHAR2, p_password IN OUT VARCHAR2) RETURN BOOLEAN;
 --procedure that add new client
     PROCEDURE p_add_client(pv_login IN VARCHAR2, 
@@ -39,7 +38,7 @@ END pkg_delivery_company;
     RETURN dbms_crypto.HASH(utl_raw.cast_to_raw(pv_login||v_string||pv_password),dbms_crypto.hash_sh1);
   END;
 
---functions that checks the user's identity
+--function that checks the user's identity
   FUNCTION f_authentication(
     p_username IN VARCHAR2,
     p_password IN OUT VARCHAR2
