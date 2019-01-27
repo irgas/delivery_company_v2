@@ -47,7 +47,7 @@ CREATE TABLE delivery (
     payment_way                   VARCHAR2(50 CHAR) NOT NULL,
     payment_status                VARCHAR2(50 CHAR) NOT NULL,
     sender_company_name           VARCHAR2(80 CHAR),
-    sender_nip_pesel              VARCHAR2(11 CHAR),
+    sender_nip_pesel              VARCHAR2(13 CHAR),
     sender_last_name              VARCHAR2(50 CHAR),
     sender_first_name             VARCHAR2(30 CHAR),
     sender_country                VARCHAR2(40 CHAR) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE delivery (
     sender_phone                  VARCHAR2(15 CHAR) NOT NULL,
     sender_email                  VARCHAR2(50 CHAR) NOT NULL,
     recipient_company_name        VARCHAR2(80 CHAR),
-    recipient_nip_pesel           VARCHAR2(11 CHAR),
+    recipient_nip_pesel           VARCHAR2(13 CHAR),
     recipient_last_name           VARCHAR2(50 CHAR),
     recipient_first_name          VARCHAR2(30 CHAR),
     recipient_country             VARCHAR2(40 CHAR) NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE delivery (
     recipient_apartment_nr        VARCHAR2(5 CHAR),
     recipient_phone               VARCHAR2(15 CHAR) NOT NULL,
     recipient_email               VARCHAR2(50 CHAR) NOT NULL,
-    payer_nip_pesel               VARCHAR2(11 CHAR) NOT NULL,
+    payer_nip_pesel               VARCHAR2(13 CHAR) NOT NULL,
     transport_company_nip_pesel   VARCHAR2(11 CHAR) NOT NULL
 );
 
@@ -100,7 +100,7 @@ CREATE TABLE parcels (
 ALTER TABLE parcels ADD CONSTRAINT parcels_pk PRIMARY KEY ( code );
 
 CREATE TABLE payers (
-    nip_pesel               VARCHAR2(11 CHAR) NOT NULL,
+    nip_pesel               VARCHAR2(13 CHAR) NOT NULL,
     company_name            VARCHAR2(80 CHAR),
     last_name               VARCHAR2(50 CHAR),
     first_name              VARCHAR2(30 CHAR),
