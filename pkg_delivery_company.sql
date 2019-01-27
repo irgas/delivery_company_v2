@@ -75,43 +75,6 @@ TYPE words IS TABLE OF VARCHAR2(200 CHAR) index by binary_integer;
         pv_delivery_comments        IN VARCHAR2
     );
 
-    PROCEDURE p_creating_delivery (
-        pv_sender_company_name      IN VARCHAR2,
-        pv_sender_nip_pesel         IN VARCHAR2,
-        pv_sender_last_name         IN VARCHAR2,
-        pv_sender_first_name        IN VARCHAR2,
-        pv_sender_country           IN VARCHAR2,
-        pv_sender_city              IN VARCHAR2,
-        pv_sender_postal_code       IN VARCHAR2,
-        pv_sender_street            IN VARCHAR2,
-        pv_sender_building_nr       IN VARCHAR2,
-        pv_sender_apartment_nr      IN VARCHAR2,
-        pv_sender_phone             IN VARCHAR2,
-        pv_sender_email             IN VARCHAR2,
-        pv_recipient_company_name   IN VARCHAR2,
-        pv_recipient_nip_pesel      IN VARCHAR2,
-        pv_recipient_last_name      IN VARCHAR2,
-        pv_recipient_first_name     IN VARCHAR2,
-        pv_recipient_country        IN VARCHAR2,
-        pv_recipient_city           IN VARCHAR2,
-        pv_recipient_postal_code    IN VARCHAR2,
-        pv_recipient_street         IN VARCHAR2,
-        pv_recipient_building_nr    IN VARCHAR2,
-        pv_recipient_apartment_nr   IN VARCHAR2,
-        pv_recipient_phone          IN VARCHAR2,
-        pv_recipient_email          IN VARCHAR2,
-        pv_parcel_code              IN VARCHAR2,
-        pv_parcel_name              IN VARCHAR2,
-        pn_parcel_count             IN NUMBER,
-        pn_parcel_price             IN NUMBER,
-        pn_parcel_value             IN NUMBER,
-        pv_payment_way              IN VARCHAR2,
-        pv_payer_nip_pesel          IN VARCHAR2,
-        pn_delivery_cost            IN NUMBER,
-        pv_delivery_content         IN VARCHAR2,
-        pv_delivery_comments        IN VARCHAR2
-    );
-    
 --function that generate delivery number
     FUNCTION f_get_delivery_number RETURN VARCHAR2;
     
@@ -281,6 +244,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
         v_delivery_nr   delivery.nr%TYPE;
         n_distance      delivery.distance%TYPE;
         v_station       stations.code%TYPE;
+        n_exist         NUMBER;
         
         CURSOR cur_delivery_details 
         IS 
@@ -293,11 +257,20 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
         v_delivery_nr   := f_get_delivery_number;
         n_distance      := f_get_distance;
         
+        SELECT COUNT(*)
+            INTO n_exist
+                FROM payers
+                    WHERE nip_pesel = pv_payer_nip_pesel;
+        
+        IF n_exist = 0 THEN
+        
         INSERT INTO payers 
         (company_name,nip_pesel,last_name,first_name,country,city,postal_code,street,building_nr,apartment_nr,phone,email,payer_bank_account_nr) 
         VALUES 
         (pv_payer_company_name,pv_payer_nip_pesel,pv_payer_last_name,pv_payer_first_name,pv_payer_country,pv_payer_city,pv_payer_postal_code,pv_payer_street,pv_payer_building_nr,pv_payer_apartment_nr,pv_payer_phone,pv_payer_email,pv_payer_bank_account_nr);
-
+        
+        END IF;
+        
         INSERT INTO delivery 
         (nr,COST,CONTENT,comments,distance,payment_way,payment_status,
         sender_company_name,sender_nip_pesel,sender_last_name,sender_first_name,sender_country,sender_city,sender_postal_code,sender_street,sender_building_nr,sender_apartment_nr,sender_phone,sender_email,
@@ -308,9 +281,10 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
         pv_sender_company_name,pv_sender_nip_pesel,pv_sender_last_name,pv_sender_first_name,pv_sender_country,pv_sender_city,pv_sender_postal_code,pv_sender_street,pv_sender_building_nr,pv_sender_apartment_nr,pv_sender_phone,pv_sender_email,
         pv_recipient_company_name,pv_recipient_nip_pesel,pv_recipient_last_name,pv_recipient_first_name,pv_recipient_country,pv_recipient_city,pv_recipient_postal_code,pv_recipient_street,pv_recipient_building_nr,pv_recipient_apartment_nr,pv_recipient_phone,pv_recipient_email,
         pv_payer_nip_pesel,'1118989321');
+        
 
         FOR I IN cur_delivery_details LOOP
-        
+            
             INSERT INTO delivery_details 
             (delivery_nr,parcel_code,parcel_count,parcel_price,value)
             VALUES 
@@ -323,63 +297,19 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
         INSERT INTO statues 
         (date_time,delivery_nr,station_code,DESCRIPTION) 
         VALUES 
-        (TO_CHAR(SYSDATE,'YY/MM/DD HH24:MM:SS'),v_delivery_nr,v_station,'Przesy³ka nadana. Czeka na odbiór kuriera.');
+        (SYSDATE,v_delivery_nr,v_station,'Przesy³ka nadana. Czeka na odbiór kuriera.');
 
         COMMIT;
         
     EXCEPTION
     
         WHEN OTHERS THEN
-            
+
             ROLLBACK;
---            raise_application_error(-20001,'Wyst¹pi³ b³¹d serwera. Spróbuj ponownie.');
+            raise_application_error(-20001,'Wyst¹pi³ b³¹d serwera. Spróbuj ponownie.');
             
     END p_creating_delivery;
-
-    PROCEDURE p_creating_delivery (
-        pv_sender_company_name      IN VARCHAR2,
-        pv_sender_nip_pesel         IN VARCHAR2,
-        pv_sender_last_name         IN VARCHAR2,
-        pv_sender_first_name        IN VARCHAR2,
-        pv_sender_country           IN VARCHAR2,
-        pv_sender_city              IN VARCHAR2,
-        pv_sender_postal_code       IN VARCHAR2,
-        pv_sender_street            IN VARCHAR2,
-        pv_sender_building_nr       IN VARCHAR2,
-        pv_sender_apartment_nr      IN VARCHAR2,
-        pv_sender_phone             IN VARCHAR2,
-        pv_sender_email             IN VARCHAR2,
-        pv_recipient_company_name   IN VARCHAR2,
-        pv_recipient_nip_pesel      IN VARCHAR2,
-        pv_recipient_last_name      IN VARCHAR2,
-        pv_recipient_first_name     IN VARCHAR2,
-        pv_recipient_country        IN VARCHAR2,
-        pv_recipient_city           IN VARCHAR2,
-        pv_recipient_postal_code    IN VARCHAR2,
-        pv_recipient_street         IN VARCHAR2,
-        pv_recipient_building_nr    IN VARCHAR2,
-        pv_recipient_apartment_nr   IN VARCHAR2,
-        pv_recipient_phone          IN VARCHAR2,
-        pv_recipient_email          IN VARCHAR2,
-        pv_parcel_code              IN VARCHAR2,
-        pv_parcel_name              IN VARCHAR2,
-        pn_parcel_count             IN NUMBER,
-        pn_parcel_price             IN NUMBER,
-        pn_parcel_value             IN NUMBER,
-        pv_payment_way              IN VARCHAR2,
-        pv_payer_nip_pesel          IN VARCHAR2,
-        pn_delivery_cost            IN NUMBER,
-        pv_delivery_content         IN VARCHAR2,
-        pv_delivery_comments        IN VARCHAR2
-    )
-    IS
-    BEGIN
-        NULL;
-    EXCEPTION
-        WHEN OTHERS THEN
-            raise_application_error(-20001,'blad');
-    END p_creating_delivery; 
-    
+   
 --function that generate delivery number
     FUNCTION f_get_delivery_number RETURN VARCHAR2 IS
         v_delivery_nr   delivery.nr%TYPE;
@@ -444,15 +374,15 @@ BEGIN
         CASE substr(pv_text,j,1)
             WHEN ' ' THEN
             tab_words(n_i) := substr(pv_text,n_p,j-n_p);
-            n_p := LENGTH(substr(pv_text,n_p,j+1));
+            n_p := j+1;
             n_i := n_i+1;
             WHEN ',' THEN
             tab_words(n_i) := substr(pv_text,n_p,j-n_p);
-            n_p := LENGTH(substr(pv_text,n_p,j+1));
+            n_p := j+1;
             n_i := n_i+1;
             when '/' then
             tab_words(n_i) := substr(pv_text,n_p,j-n_p);
-            n_p := LENGTH(substr(pv_text,n_p,j+1));
+            n_p := j+1;
             n_i := n_i+1;
             ELSE
             null;
