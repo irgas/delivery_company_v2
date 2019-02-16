@@ -15,6 +15,8 @@ DROP TABLE stations CASCADE CONSTRAINTS;
 
 DROP TABLE statues CASCADE CONSTRAINTS;
 
+DROP TABLE verifications;
+
 CREATE TABLE clients (
     nr                NUMBER(5) NOT NULL,
     company_name      VARCHAR2(80 CHAR),
@@ -180,3 +182,8 @@ ALTER TABLE statues
 ALTER TABLE statues
     ADD CONSTRAINT statues_stations_fk FOREIGN KEY ( station_code )
         REFERENCES stations ( code );
+
+CREATE TABLE verifications (
+    login VARCHAR2(15 CHAR) NOT NULL primary key,
+    LINK VARCHAR2(40 CHAR) NOT NULL
+);
