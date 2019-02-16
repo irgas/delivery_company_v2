@@ -30,7 +30,7 @@ TYPE words IS TABLE OF VARCHAR2(200 CHAR) index by binary_integer;
         pv_phone          IN VARCHAR2,
         pv_email          IN VARCHAR2
     );
---procedures that creating new delivery
+--procedure that creating new delivery
     PROCEDURE p_creating_delivery (
         pv_sender_company_name      IN VARCHAR2,
         pv_sender_nip_pesel         IN VARCHAR2,
@@ -86,6 +86,9 @@ TYPE words IS TABLE OF VARCHAR2(200 CHAR) index by binary_integer;
 
 --function that divide text and it get table with words
     FUNCTION f_divide_text(pv_text IN VARCHAR2) RETURN words;
+    
+--procedure that account verification 
+    PROCEDURE p_account_verification(pv_login IN VARCHAR2,pv_link IN VARCHAR2);
 
 END pkg_delivery_company;
 /
@@ -176,6 +179,8 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
         pv_email          IN VARCHAR2
     )
     IS
+        v_link VARCHAR2(40);
+        
     BEGIN
     
         pv_password_io   := f_get_encrypt_password(pv_login => UPPER(pv_login),pv_password => pv_password_io);
@@ -185,6 +190,16 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
         VALUES 
         (seq_clients.NEXTVAL,pv_login,pv_password_io,pv_company_name,pv_nip_pesel,pv_last_name,pv_first_name,pv_country,pv_city,pv_postal_code,pv_street,pv_building_nr,pv_apartment_nr,pv_phone,pv_email,'N','N');
 
+--generating a verification link and setting the element of the verification link in the application       
+        SELECT f_get_encrypt_password(pv_login,dbms_random.STRING('A',10))
+            INTO v_link
+                FROM dual;
+            
+        INSERT INTO verifications(login,LINK)
+            VALUES(pv_login,v_link);
+            
+        apex_util.set_session_state('VERIFICATION_LINK',v_link);
+        
         COMMIT;
         
     EXCEPTION
@@ -195,7 +210,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
             
     END p_add_client;
     
---procedures that creating new delivery
+--procedure that creating new delivery
     PROCEDURE p_creating_delivery (
         pv_sender_company_name      IN VARCHAR2,
         pv_sender_nip_pesel         IN VARCHAR2,
@@ -393,6 +408,31 @@ BEGIN
     RETURN tab_words;
     
 END f_divide_text;
+
+PROCEDURE p_account_verification(pv_login IN VARCHAR2,pv_link IN VARCHAR2)
+AS
+    n_exist NUMBER;
+BEGIN
+
+    SELECT 1
+        INTO n_exist
+        FROM verifications
+            WHERE login = pv_login AND LINK = pv_link;
+            
+    apex_util.set_session_state('LOGIN_ERROR','Konto zosta³o zweryfikowane.');
+    
+    DELETE FROM verifications
+            WHERE login = pv_login AND LINK = pv_link;
+    
+    COMMIT;
+    
+EXCEPTION
+    WHEN OTHERS THEN
+    apex_util.set_session_state('LOGIN_ERROR',
+    'Konto zosta³o nie zosta³o zweryfikowane. Spróbuj ponownie lub skontaktuj siê z administratorem.');
+    
+END p_account_verification;
+
 
 END pkg_delivery_company;
 /
