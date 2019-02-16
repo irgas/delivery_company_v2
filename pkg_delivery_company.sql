@@ -433,7 +433,7 @@ BEGIN
 EXCEPTION
     WHEN OTHERS THEN
     apex_util.set_session_state('LOGIN_ERROR',
-    'Konto zosta³o nie zosta³o zweryfikowane. Spróbuj ponownie lub skontaktuj siê z administratorem.');
+    'Konto zosta³o nie zweryfikowane. Spróbuj ponownie lub skontaktuj siê z administratorem.');
     
 END p_account_verification;
 
