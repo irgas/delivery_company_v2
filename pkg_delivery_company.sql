@@ -418,6 +418,10 @@ BEGIN
         INTO n_exist
         FROM verifications
             WHERE login = pv_login AND LINK = pv_link;
+    
+    UPDATE clients
+        SET verified = 'Y'
+            WHERE login = pv_login; 
             
     apex_util.set_session_state('LOGIN_ERROR','Konto zosta³o zweryfikowane.');
     
