@@ -89,7 +89,27 @@ TYPE words IS TABLE OF VARCHAR2(200 CHAR) index by binary_integer;
     
 --procedure that account verification 
     PROCEDURE p_account_verification(pv_login IN VARCHAR2,pv_link IN VARCHAR2);
+--procedure that makes create task and create report
+PROCEDURE p_creating_report_pdf(
+    pv_delivery_nr          IN      VARCHAR2,
+    pv_template_name        IN      VARCHAR2,
+    pv_template_path        IN      VARCHAR2, 
+    pv_report_path          IN      VARCHAR2,
+    pv_host                 IN      VARCHAR2,                                       
+    pn_port                 IN      NUMBER,                                       
+    pv_jasper_login         IN      VARCHAR2,
+    pv_jasper_password      IN      VARCHAR2
+    );
 
+PROCEDURE p_get_report(
+  pv_file_name          IN VARCHAR2,
+  pv_folder_path        IN VARCHAR2,
+  pv_hostname           IN VARCHAR2, 
+  pn_port               IN NUMBER, 
+  pv_username           IN VARCHAR2, 
+  pv_password           IN VARCHAR2
+  );
+  
 END pkg_delivery_company;
 /
 
@@ -314,6 +334,9 @@ CREATE OR REPLACE PACKAGE BODY pkg_delivery_company AS
         VALUES 
         (SYSDATE,v_delivery_nr,v_station,'Przesy³ka nadana. Czeka na odbiór kuriera.');
 
+
+        p_creating_report_pdf(v_delivery_nr,'parcel','/reports/Delivery_Company/','/delivery_history','localhost',8051,'jasperadmin','jasperadmin');
+        
         COMMIT;
         
     EXCEPTION
@@ -437,6 +460,126 @@ EXCEPTION
     
 END p_account_verification;
 
+PROCEDURE p_creating_report_pdf(
+    pv_delivery_nr          IN      VARCHAR2,
+    pv_template_name        IN      VARCHAR2,
+    pv_template_path        IN      VARCHAR2, 
+    pv_report_path          IN      VARCHAR2,
+    pv_host                 IN      VARCHAR2,                                       
+    pn_port                 IN      NUMBER,                                       
+    pv_jasper_login         IN      VARCHAR2,
+    pv_jasper_password      IN      VARCHAR2
+    )
+    as
+    d_data                 TIMESTAMP := sysdate;
+    l_clob              CLOB;
+    v_task_settings     CLOB :=    '{
+    "label": "Zdalny proces",
+    "creationDate": "'||to_char(d_data,'yyyy-MM-dd')||'T'||to_char(d_data,'HH24:mm:ss')||'",
+    "trigger": {
+        "simpleTrigger": {
+            "timezone": "Europe/Belgrade",
+            "startType": 1,
+            "occurrenceCount": 1
+        }
+    },
+    "baseOutputFilename": "'||lower(pv_template_name)||'-'||substr(pv_delivery_nr,1,7)||substr(pv_delivery_nr,9,2)||substr(pv_delivery_nr,12,4)||'",
+    "source": {
+        "reportUnitURI": "'||pv_template_path||lower(pv_template_name)||'",
+        "parameters": {
+            "parameterValues": {
+                "delivery_nr": [
+                    "'||pv_delivery_nr||'"
+                ]
+            }
+        }
+    },
+    "outputFormats": {
+        "outputFormat": [
+            "PDF"
+        ]
+    },
+    "repositoryDestination": {
+        "folderURI": "'||pv_report_path||'",
+        "sequentialFilenames": false,
+        "timestampPattern": "yyyyMMddHHmm",
+        "saveToRepository": true
+    }
+}';
+    
+    v_link clob := 'http://'||pv_host||':'||pn_port||'/jasperserver/rest_v2/jobs';
+BEGIN
+
+    apex_web_service.g_request_headers (1) .name := 'Content-Type'; 
+    apex_web_service.g_request_headers (1) .value := 'application/job+json';
+     
+     l_clob := apex_web_service.make_rest_request(
+        p_url => v_link,
+        p_http_method => 'PUT',
+        p_username => pv_jasper_login,
+        p_password => pv_jasper_password,
+        p_body => v_task_settings
+        );
+
+--    if apex_web_service.g_status_code = '200' then
+--        DBMS_OUTPUT.PUT_LINE('Zadanie wykonane.');
+--    ELSE
+--        DBMS_OUTPUT.PUT_LINE('B³¹d');
+--    END IF;
+END p_creating_report_pdf;
+
+PROCEDURE p_get_report(
+  pv_file_name          IN VARCHAR2,
+  pv_folder_path        IN VARCHAR2,
+  pv_hostname           IN VARCHAR2, 
+  pn_port               IN NUMBER, 
+  pv_username           IN VARCHAR2, 
+  pv_password           IN VARCHAR2
+  )
+  AS
+  
+  v_blob                 BLOB;
+  v_vcContentDisposition VARCHAR2 (25)  := 'inline';
+
+
+
+  v_jasper_string VARCHAR2(30) := pv_username || ';' || pv_password;
+
+  v_login_url  VARCHAR2(100) := 
+    'http://' || pv_hostname || ':' || pn_port || '/jasperserver/rest/login';
+
+  v_report_url VARCHAR2(100) := 
+    'http://' || pv_hostname || ':' || pn_port || '/jasperserver/rest_v2/resources/'||pv_folder_path||'/'||pv_file_name||'.pdf';
+BEGIN
+
+  -- log into jasper server
+  v_blob := apex_web_service.make_rest_request_b(
+    p_url => v_login_url,
+    p_http_method => 'GET',
+    p_parm_name => apex_util.string_to_table('j_username;j_password',';'),
+    p_parm_value => apex_util.string_to_table(v_jasper_string,';')
+  );
+
+  -- download file
+  v_blob := apex_web_service.make_rest_request_b(
+    p_url => v_report_url,
+    p_http_method => 'GET'
+  );
+
+  OWA_UTIL.mime_header ('application/pdf', FALSE);  -- view your pdf file
+  OWA_UTIL.MIME_HEADER( 'application/octet', FALSE ); -- download your pdf file
+  htp.P('Content-Length: ' || dbms_lob.getlength(v_blob));
+  HTP.p('Content-Disposition: ' || v_vcContentDisposition ||'; filename="' || pv_file_name || '"');
+  OWA_UTIL.http_header_close;
+  WPG_DOCLOAD.DOWNLOAD_FILE(v_blob);
+
+  APEX_APPLICATION.STOP_APEX_ENGINE;
+
+EXCEPTION
+  WHEN OTHERS THEN
+    RAISE;
+
+END p_get_report;
 
 END pkg_delivery_company;
 /
