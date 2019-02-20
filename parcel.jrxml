@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parcel" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="496f6dbe-6d50-44ac-8463-52f342c359dc">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[IkRFTElWRVJZX0RFVEFJTFMiICwxNSw2NzIsYTA3NzFkNjctYmYyZC00ODM5LTg1YTItMGYyMmZj
+ZWUzNDFjOyJERUxJVkVSWSIgLDE3OCwxNSw5YWVlNjJhNS01YTEzLTRjYjgtYjhiZC05ODIyODkx
+NTZkODI7]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oracle Database"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8051/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/Delivery_Company/parcel"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/Delivery_Company/parcel_files/main_jrxml"/>
+	<parameter name="delivery_nr" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT "DELIVERY"."NR",
+	"DELIVERY"."COST",
+	"DELIVERY"."CONTENT",
+	"DELIVERY"."COMMENTS",
+	"DELIVERY"."DISTANCE",
+	"DELIVERY"."PAYMENT_WAY",
+	"DELIVERY"."PAYMENT_STATUS",
+	"DELIVERY"."SENDER_COMPANY_NAME",
+	"DELIVERY"."SENDER_NIP_PESEL",
+	"DELIVERY"."SENDER_LAST_NAME",
+	"DELIVERY"."SENDER_FIRST_NAME",
+	"DELIVERY"."SENDER_COUNTRY",
+	"DELIVERY"."SENDER_CITY",
+	"DELIVERY"."SENDER_POSTAL_CODE",
+	"DELIVERY"."SENDER_STREET",
+	"DELIVERY"."SENDER_BUILDING_NR",
+	"DELIVERY"."SENDER_APARTMENT_NR",
+	"DELIVERY"."SENDER_PHONE",
+	"DELIVERY"."SENDER_EMAIL",
+	"DELIVERY"."RECIPIENT_COMPANY_NAME",
+	"DELIVERY"."RECIPIENT_NIP_PESEL",
+	"DELIVERY"."RECIPIENT_LAST_NAME",
+	"DELIVERY"."RECIPIENT_FIRST_NAME",
+	"DELIVERY"."RECIPIENT_COUNTRY",
+	"DELIVERY"."RECIPIENT_CITY",
+	"DELIVERY"."RECIPIENT_POSTAL_CODE",
+	"DELIVERY"."RECIPIENT_STREET",
+	"DELIVERY"."RECIPIENT_BUILDING_NR",
+	"DELIVERY"."RECIPIENT_APARTMENT_NR",
+	"DELIVERY"."RECIPIENT_PHONE",
+	"DELIVERY"."RECIPIENT_EMAIL",
+	"DELIVERY"."PAYER_NIP_PESEL",
+	"DELIVERY"."TRANSPORT_COMPANY_NIP_PESEL",
+	"DELIVERY_DETAILS"."DELIVERY_NR",
+	"DELIVERY_DETAILS"."PARCEL_CODE",
+	"DELIVERY_DETAILS"."PARCEL_COUNT",
+	"DELIVERY_DETAILS"."VALUE",
+	"DELIVERY_DETAILS"."PARCEL_PRICE"
+FROM "DELIVERY_DETAILS"
+	INNER JOIN "DELIVERY" ON 
+	 "DELIVERY_DETAILS"."DELIVERY_NR" = "DELIVERY"."NR"
+	 where nr =  $P{delivery_nr}]]>
+	</queryString>
+	<field name="NR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NR"/>
+	</field>
+	<field name="COST" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="COST"/>
+	</field>
+	<field name="CONTENT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CONTENT"/>
+	</field>
+	<field name="COMMENTS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="COMMENTS"/>
+	</field>
+	<field name="DISTANCE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="DISTANCE"/>
+	</field>
+	<field name="PAYMENT_WAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PAYMENT_WAY"/>
+	</field>
+	<field name="PAYMENT_STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PAYMENT_STATUS"/>
+	</field>
+	<field name="SENDER_COMPANY_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_COMPANY_NAME"/>
+	</field>
+	<field name="SENDER_NIP_PESEL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_NIP_PESEL"/>
+	</field>
+	<field name="SENDER_LAST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_LAST_NAME"/>
+	</field>
+	<field name="SENDER_FIRST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_FIRST_NAME"/>
+	</field>
+	<field name="SENDER_COUNTRY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_COUNTRY"/>
+	</field>
+	<field name="SENDER_CITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_CITY"/>
+	</field>
+	<field name="SENDER_POSTAL_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_POSTAL_CODE"/>
+	</field>
+	<field name="SENDER_STREET" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_STREET"/>
+	</field>
+	<field name="SENDER_BUILDING_NR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_BUILDING_NR"/>
+	</field>
+	<field name="SENDER_APARTMENT_NR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_APARTMENT_NR"/>
+	</field>
+	<field name="SENDER_PHONE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_PHONE"/>
+	</field>
+	<field name="SENDER_EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SENDER_EMAIL"/>
+	</field>
+	<field name="RECIPIENT_COMPANY_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_COMPANY_NAME"/>
+	</field>
+	<field name="RECIPIENT_NIP_PESEL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_NIP_PESEL"/>
+	</field>
+	<field name="RECIPIENT_LAST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_LAST_NAME"/>
+	</field>
+	<field name="RECIPIENT_FIRST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_FIRST_NAME"/>
+	</field>
+	<field name="RECIPIENT_COUNTRY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_COUNTRY"/>
+	</field>
+	<field name="RECIPIENT_CITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_CITY"/>
+	</field>
+	<field name="RECIPIENT_POSTAL_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_POSTAL_CODE"/>
+	</field>
+	<field name="RECIPIENT_STREET" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_STREET"/>
+	</field>
+	<field name="RECIPIENT_BUILDING_NR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_BUILDING_NR"/>
+	</field>
+	<field name="RECIPIENT_APARTMENT_NR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_APARTMENT_NR"/>
+	</field>
+	<field name="RECIPIENT_PHONE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_PHONE"/>
+	</field>
+	<field name="RECIPIENT_EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECIPIENT_EMAIL"/>
+	</field>
+	<field name="PAYER_NIP_PESEL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PAYER_NIP_PESEL"/>
+	</field>
+	<field name="TRANSPORT_COMPANY_NIP_PESEL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TRANSPORT_COMPANY_NIP_PESEL"/>
+	</field>
+	<field name="DELIVERY_NR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DELIVERY_NR"/>
+	</field>
+	<field name="PARCEL_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PARCEL_CODE"/>
+	</field>
+	<field name="PARCEL_COUNT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="PARCEL_COUNT"/>
+	</field>
+	<field name="VALUE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VALUE"/>
+	</field>
+	<field name="PARCEL_PRICE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="PARCEL_PRICE"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="400" height="30" uuid="4e9506c2-723e-4675-9e95-e28fffb6cbfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Potwierdzenie nadania przesyłki]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="30" width="400" height="30" uuid="ef2b66c4-a0dd-4a22-a69b-fcc7b2597ad5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{NR}!=null?"Nr. "+$F{NR}:" ")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="183" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="20" width="100" height="30" uuid="1f4ed36e-217a-4ddb-a4e6-a56a0becda70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nadawca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="20" width="100" height="30" uuid="528273df-1971-499e-8fd1-e7de8e1ad4e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Odbiorca]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="50" width="150" height="20" uuid="d5de3ec6-ce52-4c14-aac7-e348676d7ead"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SENDER_COMPANY_NAME}!=null?$F{SENDER_COMPANY_NAME}:" ")+" "+($F{SENDER_NIP_PESEL}!=null?$F{SENDER_NIP_PESEL}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="70" width="150" height="20" uuid="07ad5f96-97b2-4a6f-9b3f-7804baee884d"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SENDER_LAST_NAME}!=null?$F{SENDER_LAST_NAME}:" ")+" "+($F{SENDER_FIRST_NAME}!=null?$F{SENDER_FIRST_NAME}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="90" width="150" height="20" uuid="0fa3bcfd-3fbf-4b82-8de4-7f007b6a4566"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SENDER_COUNTRY}!=null?$F{SENDER_COUNTRY}:" ")+" "+($F{SENDER_CITY}!=null?$F{SENDER_CITY}:" ")+" "+($F{SENDER_POSTAL_CODE}!=null?$F{SENDER_POSTAL_CODE}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="110" width="150" height="20" uuid="e0825ea7-0e84-4ae9-9c3b-0e3674893142"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SENDER_STREET}!=null?"ul."+$F{SENDER_STREET}:" ")+" "+($F{SENDER_BUILDING_NR}!=null?$F{SENDER_BUILDING_NR}:" ")+" "+($F{SENDER_APARTMENT_NR}!=null?"/ m. "+$F{SENDER_APARTMENT_NR}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="130" width="150" height="20" uuid="37627b4a-74e2-4288-a9c3-8ef21ad94840"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SENDER_PHONE}!=null?"tel. "+$F{SENDER_PHONE}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="150" width="150" height="20" uuid="3363f89e-7456-442b-99f9-988cdea06f0f"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SENDER_EMAIL}!=null?"email: "+$F{SENDER_EMAIL}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="50" width="150" height="20" uuid="0b2f6c0b-e8cf-41df-990f-fb8315cd2660"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{RECIPIENT_COMPANY_NAME}!=null?$F{RECIPIENT_COMPANY_NAME}:" ")+" "+($F{RECIPIENT_NIP_PESEL}!=null?$F{RECIPIENT_NIP_PESEL}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="70" width="150" height="20" uuid="7108b907-8653-4a0f-905e-0b7c4f38bb36"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{RECIPIENT_LAST_NAME}!=null?$F{RECIPIENT_LAST_NAME}:" ")+" "+($F{RECIPIENT_FIRST_NAME}!=null?$F{RECIPIENT_FIRST_NAME}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="90" width="150" height="20" uuid="b6ef9fff-760a-4e28-aa07-7cc685522cf9"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{RECIPIENT_COUNTRY}!=null?$F{RECIPIENT_COUNTRY}:" ")+" "+($F{RECIPIENT_CITY}!=null?$F{RECIPIENT_CITY}:" ")+" "+($F{RECIPIENT_POSTAL_CODE}!=null?$F{RECIPIENT_POSTAL_CODE}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="110" width="150" height="20" uuid="f2dc1b62-9418-4daa-ac32-82e8ebcc1fe3"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{RECIPIENT_STREET}!=null?"ul."+$F{RECIPIENT_STREET}:" ")+" "+($F{RECIPIENT_BUILDING_NR}!=null?$F{RECIPIENT_BUILDING_NR}:" ")+" "+($F{RECIPIENT_APARTMENT_NR}!=null?"/ m. "+$F{RECIPIENT_APARTMENT_NR}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="130" width="150" height="20" uuid="bd1e28b7-1cda-4f74-aecb-994aea7f06d1"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{RECIPIENT_PHONE}!=null?"tel. "+$F{RECIPIENT_PHONE}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="150" width="150" height="20" uuid="e0c6e5f6-abb1-414e-81ae-960483cc325b"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{RECIPIENT_EMAIL}!=null?"email: "+$F{RECIPIENT_EMAIL}:" ")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="30" uuid="238b1cfc-0f1d-443b-92a1-1512118f3f50">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c653667e-a5ed-4a42-811e-edd826086491"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kod paczki]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="30" uuid="9082d7ed-8879-45df-b7f1-da4dd8246c2f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="483ba403-3e9d-4f90-bac6-b6ad518d32d2"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ilość]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="842f17da-cca6-4bed-91e4-3c4e98ce4b35">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5222c1c0-c899-4e3a-8efe-2d8809f702f5"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Wartość]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="7bb79885-c220-4709-9994-a663c25326b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62e5f340-8eb9-488f-814a-59522c72d1ae"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cena]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="100" height="32" uuid="46cc0e65-4a60-4620-be2d-d90046d61a82">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c653667e-a5ed-4a42-811e-edd826086491"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PARCEL_CODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="32" uuid="4ac12a3a-b265-4468-aa30-37756e72273c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="483ba403-3e9d-4f90-bac6-b6ad518d32d2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PARCEL_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="32" uuid="bdbbed6b-4fd8-4651-ab80-c417d06b67db">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5222c1c0-c899-4e3a-8efe-2d8809f702f5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="32" uuid="c23fca08-a3ad-41e9-855a-8603bd9bda8b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62e5f340-8eb9-488f-814a-59522c72d1ae"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PARCEL_PRICE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="232" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="40" width="130" height="50" uuid="e106f474-85fe-4946-b6b9-3b2f35f5c215"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTENT}!=null?$F{CONTENT}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="40" width="120" height="40" uuid="3c2c5834-6c4c-48ca-843a-e17713d6312c"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{COMMENTS}!=null?$F{COMMENTS}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="130" width="120" height="30" uuid="80e388bb-0db0-4939-88b6-918eb68cf0cf"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{COST}!=null?$F{COST}:" ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="130" width="130" height="30" uuid="04de1cef-b4ce-4aba-9136-58bffa27ba8b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PAYMENT_WAY}!=null?$F{PAYMENT_WAY}:" ")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="10" width="130" height="30" uuid="959ba359-aebf-43b4-a5e8-79afd1819cd0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Zawartość przesyłki:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="10" width="120" height="30" uuid="d426250a-5f31-45aa-847d-fa5af4a38d14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Opis:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="100" width="130" height="30" uuid="75ca21ae-3ae7-4cba-a811-fb29291345c5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sposób zapłaty:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="170" width="130" height="30" uuid="39c49d14-0e35-4212-9b26-a95501bda9b7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status płatności:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="200" width="130" height="32" uuid="d8bba67d-1781-4f74-ae80-9869f75af61d"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PAYMENT_STATUS}!=null?$F{PAYMENT_STATUS}:" ")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="101" width="120" height="30" uuid="9e44cb82-86cd-46fa-ab6c-17aa6c0f0e76"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Koszt przesyłki:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
